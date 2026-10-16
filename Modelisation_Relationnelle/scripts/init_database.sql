@@ -23,7 +23,7 @@ CREATE TABLE client (
 CREATE TABLE produit (
     code_prod VARCHAR(20) PRIMARY KEY,
     designation VARCHAR(150) NOT NULL,
-    prix_unitaire_ht DECIMAL(10, 2) NOT NULL
+    prix_unitaire_ht DECIMAL(10, 2) NOT NULL CHECK (prix_unitaire_ht > 0)
 );
 
 -- Table COMMANDE
