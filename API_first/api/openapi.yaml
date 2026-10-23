@@ -15,7 +15,7 @@ paths:
       requestBody:
         required: true
         content:
-          applications/json:
+          application/json:
             schema:
               $ref: '#/components/schemas/WebhookPayload'
       responses:
@@ -24,7 +24,7 @@ paths:
         "400":
           description: Payload invalide.
           content:
-            applications/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
@@ -38,10 +38,14 @@ components:
       properties:
         orderId:
           type: string
+          format: uuid
         paymentStatus:
           type: string
+          enum: [SUCCESS, FAILED]
         transactionId:
           type: string
+          pattern: '^TXN-[0-9]{8}$'
+      additionalProperties: false
     ErrorResponse:
       type: object
       required:
