@@ -8,11 +8,44 @@ servers:
 paths:
   /payments/webhook:
     post:
+      tags:
+        - Paiements
       summary: Notification de paiement envoyée par la banque
       description: Webhook appelé par la banque partenaire pour notifier le succès ou l'échec d'une transaction.
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              $ref: '#/components/schemas/WebhookPayload'
       responses:
-        "200":
-          description: OK
+        "204":
+          description: Notification acceptée. Aucun contenu n'est renvoyé.
+        "400":
+          description: Payload invalide.
+          content:
+            applications/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    # A compléter lors des ateliers
+    WebhookPayload:
+      type: object
+      required:
+        - orderId
+        - paymentStatus
+        - transactionId
+      properties:
+        orderId:
+          type: string
+        paymentStatus:
+          type: string
+        transactionId:
+          type: string
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
