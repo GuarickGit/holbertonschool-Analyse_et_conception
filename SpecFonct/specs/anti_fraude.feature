@@ -16,16 +16,16 @@ Feature: Gouvernance et blocage des paiements frauduleux
 		Then Le paiement est accepté par la gouvernance grâce au statut VIP
 
 	Scenario Outline: Blocage par la gouvernance selon la matrice de risque
-		Given Un client standard avec une commande de <montant_cmd> euros vers la <destination>
+		Given Un client standard avec une commande de <montant_commande> euros vers la <pays_destination>
 		When Le client soumet son paiement
-		Then Le paiement est <resultat> par la gouvernance
+		Then Le paiement est <decision_paiement> par la gouvernance
 
 		Examples:
-			| montant_cmd | destination | resultat |
-			| 5000        | "France"    | accepté  |
-			| 9999        | "Syldavie"  | accepté  |
-			| 10000       | "France"    | accepté  |
-			| 10000       | "Syldavie"  | accepté  |
-			| 10001       | "France"    | accepté  |
-			| 10001       | "Syldavie"  | refusé   |
-			| 15000       | "Bordurie"  | refusé   |
+			| montant_commande | pays_destination | decision_paiement |
+			| 5000             | "France"         | accepté           |
+			| 9999             | "Syldavie"       | accepté           |
+			| 10000            | "France"         | accepté           |
+			| 10000            | "Syldavie"       | accepté           |
+			| 10001            | "France"         | accepté           |
+			| 10001            | "Syldavie"       | refusé            |
+			| 15000            | "Bordurie"       | refusé            |
