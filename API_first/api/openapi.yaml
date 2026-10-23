@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: MegaShop-B2B API
+  version: 1.0.0
+  description: API publique de MegaShop-B2B.
+servers:
+  - url: https://api.megashop-b2b.com/v1
+paths:
+  /api/v1/updatePaymentStatus:
+    post:
+      summary: Endpoint historique pour la banque
+      description: A refactoriser d'urgence selon les normes REST.
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    # A compléter lors des ateliers
