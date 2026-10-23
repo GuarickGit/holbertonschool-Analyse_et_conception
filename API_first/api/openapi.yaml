@@ -6,10 +6,10 @@ info:
 servers:
   - url: https://api.megashop-b2b.com/v1
 paths:
-  /api/v1/updatePaymentStatus:
+  /payments/webhook:
     post:
-      summary: Endpoint historique pour la banque
-      description: A refactoriser d'urgence selon les normes REST.
+      summary: Notification de paiement envoyée par la banque
+      description: Webhook appelé par la banque partenaire pour notifier le succès ou l'échec d'une transaction.
       responses:
         "200":
           description: OK
