@@ -1,20 +1,25 @@
-CREATE TABLE products (
-    product_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    barcode VARCHAR(20) UNIQUE NOT NULL,
-    name VARCHAR(50) NOT NULL
+CREATE TABLE produit (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code_barre VARCHAR(20) UNIQUE NOT NULL,
+    nom VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE locations (
-    location_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    aisle VARCHAR(20) NOT NULL,
-    rack VARCHAR(20) NOT NULL,
-    UNIQUE (aisle, rack),
-    product_id INTEGER NOT NULL REFERENCES products (product_id)
+CREATE TABLE emplacement (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    allee VARCHAR(20) NOT NULL,
+    rayon VARCHAR(20) NOT NULL,
+    id_produit INTEGER NOT NULL,
+    UNIQUE (allee, rayon),
+    FOREIGN KEY (id_produit) REFERENCES produit (id)
 );
 
-CREATE TABLE movements (
-    movement_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    location_id INTEGER NOT NULL REFERENCES locations (location_id),
-    quantity INTEGER NOT NULL CHECK (quantity <> 0),
-    moved_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE mouvement_stock (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id_emplacement INTEGER NOT NULL,
+    type_mouvement VARCHAR(10) NOT NULL CHECK (
+        type_mouvement IN ('ENTREE', 'SORTIE')
+    ),
+    quantite INTEGER NOT NULL CHECK (quantite > 0),
+    date_mouvement TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_emplacement) REFERENCES emplacement (id)
 );
