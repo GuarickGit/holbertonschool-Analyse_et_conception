@@ -18,5 +18,3 @@ CREATE TABLE movements (
     quantity INTEGER NOT NULL CHECK (quantity <> 0),
     moved_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-SELECT SUM(quantity) FROM movements WHERE location_id = 5;
