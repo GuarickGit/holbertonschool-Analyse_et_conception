@@ -1,0 +1,32 @@
+openapi: 3.0.3
+info:
+  title: StockMaster-Pro API
+  version: 1.0.0
+  description: L’API permet aux manutentionnaires de scanner un article pour déclarer un mouvement de stock
+
+paths:
+  /inventory/movements:
+    post:
+      summary: Déclarer un mouvement de stock
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [emplacementId, typeMouvement, quantite]
+              properties:
+                emplacementId:
+                  type: integer
+                typeMouvement:
+                  type: string
+                  enum: [ENTREE, SORTIE]
+                quantite:
+                  type: integer
+                  minimum: 1
+      responses:
+        '201':
+          description: Mouvement enregistré
+        '409':
+          description: Quantité disponible insuffisante
